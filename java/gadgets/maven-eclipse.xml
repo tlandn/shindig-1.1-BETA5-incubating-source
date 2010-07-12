@@ -1,0 +1,11 @@
+<project default="copy-resources">
+  <target name="init"/>
+  <target name="copy-resources" depends="init">
+    <copy todir="target/classes/config" filtering="false">
+      <fileset dir="/home/lantra/Downloads/ShindigExampleSources/shindig-1.1-BETA5-incubating-source/config" includes="oauth.json|OSML_library.xml"/>
+    </copy>
+    <copy todir="target/classes/files" filtering="false">
+      <fileset dir="/home/lantra/Downloads/ShindigExampleSources/shindig-1.1-BETA5-incubating-source/javascript" includes="**/*.*"/>
+    </copy>
+  </target>
+</project>

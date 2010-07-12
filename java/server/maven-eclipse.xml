@@ -1,0 +1,11 @@
+<project default="copy-resources">
+  <target name="init"/>
+  <target name="copy-resources" depends="init">
+    <copy todir="target/classes/containers/default" filtering="false">
+      <fileset dir="/home/lantra/Downloads/ShindigExampleSources/shindig-1.1-BETA5-incubating-source/config" includes="container.js"/>
+    </copy>
+    <copy todir="target/classes/gadgets/files" filtering="false">
+      <fileset dir="/home/lantra/Downloads/ShindigExampleSources/shindig-1.1-BETA5-incubating-source/javascript" includes="**/*.*"/>
+    </copy>
+  </target>
+</project>

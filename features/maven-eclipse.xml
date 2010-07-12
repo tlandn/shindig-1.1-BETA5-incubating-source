@@ -1,0 +1,11 @@
+<project default="copy-resources">
+  <target name="init"/>
+  <target name="copy-resources" depends="init">
+    <copy todir="target/classes/META-INF" filtering="false">
+      <fileset dir="." includes="NOTICE"/>
+    </copy>
+    <copy todir="target/classes/features" filtering="false">
+      <fileset dir="src/main/javascript/features"/>
+    </copy>
+  </target>
+</project>

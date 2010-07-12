@@ -1,0 +1,8 @@
+<project default="copy-resources">
+  <target name="init"/>
+  <target name="copy-resources" depends="init">
+    <copy todir="target/classes/sampledata" filtering="false">
+      <fileset dir="/home/lantra/Downloads/ShindigExampleSources/shindig-1.1-BETA5-incubating-source/javascript/sampledata" includes="**/*.*"/>
+    </copy>
+  </target>
+</project>
