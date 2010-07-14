@@ -68,6 +68,10 @@ public class ShindigIntegratorPersonService implements PersonService {
 		List<Person> result = db.getRelatedPersons(userIds, groupId, token);
 
 		int totalSize = result.size();
+		
+		System.out.println("Trong getPeople() totalSize : " + totalSize);
+		
+		
 		int last = options.getFirst() + options.getMax();
 		result = result.subList(options.getFirst(), Math.min(last, totalSize));
 

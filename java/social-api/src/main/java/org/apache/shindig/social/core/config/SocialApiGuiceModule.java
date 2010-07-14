@@ -43,56 +43,45 @@ import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 
 /**
- * Provides social api component injection. Implementor may want to replace this
- * module if they need to replace some of the internals of the Social API, like
- * for instance the JSON to Bean to JSON converter Beans, however in general
- * this should not be required, as most default implementations have been
- * specified with the Guice @ImplementedBy annotation.
+ * Provides social api component injection. Implementor may want to replace this module if they need
+ * to replace some of the internals of the Social API, like for instance the JSON to Bean to JSON
+ * converter Beans, however in general this should not be required, as most default implementations
+ * have been specified with the Guice @ImplementedBy annotation.
  */
 public class SocialApiGuiceModule extends AbstractModule {
 
-	/** {@inheritDoc} */
-	@Override
-	protected void configure() {
-		bind(ParameterFetcher.class).annotatedWith(
-				Names.named("DataServiceServlet")).to(
-				DataServiceServletFetcher.class);
+  /** {@inheritDoc} */
+  @Override
+  protected void configure() {
+    bind(ParameterFetcher.class).annotatedWith(Names.named("DataServiceServlet"))
+        .to(DataServiceServletFetcher.class);
 
-		bind(Boolean.class)
-				.annotatedWith(
-						Names.named(AnonymousAuthenticationHandler.ALLOW_UNAUTHENTICATED))
-				.toInstance(Boolean.TRUE);
-		bind(XStreamConfiguration.class).to(XStream081Configuration.class);
-		bind(BeanConverter.class).annotatedWith(
-				Names.named("shindig.bean.converter.xml")).to(
-				BeanXStreamConverter.class);
-		bind(BeanConverter.class).annotatedWith(
-				Names.named("shindig.bean.converter.json")).to(
-				BeanJsonConverter.class);
-		bind(BeanConverter.class).annotatedWith(
-				Names.named("shindig.bean.converter.atom")).to(
-				BeanXStreamAtomConverter.class);
+    bind(Boolean.class)
+        .annotatedWith(Names.named(AnonymousAuthenticationHandler.ALLOW_UNAUTHENTICATED))
+        .toInstance(Boolean.TRUE);
+    bind(XStreamConfiguration.class).to(XStream081Configuration.class);
+    bind(BeanConverter.class).annotatedWith(Names.named("shindig.bean.converter.xml")).to(
+        BeanXStreamConverter.class);
+    bind(BeanConverter.class).annotatedWith(Names.named("shindig.bean.converter.json")).to(
+        BeanJsonConverter.class);
+    bind(BeanConverter.class).annotatedWith(Names.named("shindig.bean.converter.atom")).to(
+        BeanXStreamAtomConverter.class);
 
-		bind(new TypeLiteral<List<AuthenticationHandler>>() {
-		}).toProvider(AuthenticationHandlerProvider.class);
+    bind(new TypeLiteral<List<AuthenticationHandler>>(){}).toProvider(
+        AuthenticationHandlerProvider.class);
 
-		bind(new TypeLiteral<Set<Object>>() {
-		}).annotatedWith(Names.named("org.apache.shindig.social.handlers"))
-				.toInstance(getHandlers());
+    bind(new TypeLiteral<Set<Object>>(){}).annotatedWith(Names.named("org.apache.shindig.social.handlers"))
+        .toInstance(getHandlers());
 
-		bind(Long.class)
-				.annotatedWith(
-						Names.named("org.apache.shindig.serviceExpirationDurationMinutes"))
-				.toInstance(60L);
-	}
+    bind(Long.class).annotatedWith(Names.named("org.apache.shindig.serviceExpirationDurationMinutes")).toInstance(60L);
+  }
 
-	/**
-	 * Hook to provide a Set of request handlers. Subclasses may override to add
-	 * or replace additional handlers.
-	 */
-	protected Set<Object> getHandlers() {
-		return ImmutableSet
-				.<Object> of(ActivityHandler.class, AppDataHandler.class,
-						PersonHandler.class, MessageHandler.class);
-	}
+  /**
+   * Hook to provide a Set of request handlers.  Subclasses may override
+   * to add or replace additional handlers.
+   */
+  protected Set<Object> getHandlers() {
+    return ImmutableSet.<Object>of(ActivityHandler.class, AppDataHandler.class,
+        PersonHandler.class, MessageHandler.class);
+  }
 }
